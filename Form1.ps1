@@ -1,5 +1,10 @@
 ﻿$pictureBox1_Click = {
-
+    $selectedRow = $dataGridView1.currentcell.Value
+    $ADUser = (([adsisearcher]"Samaccountname=$selectedRow").findone()).Properties
+    [byte[]]$imgdata = $ADUser.thumbnailphoto | %{ $_ }
+    $image=[System.Drawing.Image]::FromStream([System.IO.MemoryStream]$imgdata)
+    $Form2.bigpicture.Image = $image
+    $Form2.showdialog()
 }
 
 $dataGridView1_CellContentClick = {
@@ -138,6 +143,7 @@ Cls
 ############################################
 $form1.cursor="WaitCursor"
 $statusBar1.text="Fetching AD Records..Please Wait"
+$form1.Refresh()
 
 Build-TreeView
 $form1.cursor="Arrow"
@@ -145,50 +151,50 @@ $statusBar1.text="Ready"
 }
 
 $Btn_Replace_Click = {
-    ############################################
+############################################
 #             Replace a user pic           #
 ############################################
-$inputfile = Get-FileName ""
-$inputdata = get-content $inputfile
-## need to resize it
+    $inputfile = Get-FileName ""
+    $inputdata = get-content $inputfile
+    ## need to resize it
 	$targetwidth = 96 
 	$targetheight = 96
 
-					$OldImage = new-object System.Drawing.Bitmap "$inputfile"
-					$OldWidth = $OldImage.Width
-					$OldHeight = $OldImage.Height
+    $OldImage = new-object System.Drawing.Bitmap "$inputfile"
+    $OldWidth = $OldImage.Width
+    $OldHeight = $OldImage.Height
 
-					if($OldWidth -lt $OldHeight){
-						$NewWidth = $targetwidth
-						[int]$NewHeight = [Math]::Round(($NewWidth*$OldHeight)/$OldWidth)
+    if($OldWidth -lt $OldHeight){
+	    $NewWidth = $targetwidth
+	    [int]$NewHeight = [Math]::Round(($NewWidth*$OldHeight)/$OldWidth)
 
-						if($NewHeight -gt $targetheight){
-							$NewHeight = $targetheight
-							[int]$NewWidth = [Math]::Round(($NewHeight*$OldWidth)/$OldHeight)
-						}
-					}
-					else{
-						$NewHeight = $targetheight
-						[int]$NewWidth = [Math]::Round(($NewHeight*$OldWidth)/$OldHeight)
+	    if($NewHeight -gt $targetheight){
+		    $NewHeight = $targetheight
+		    [int]$NewWidth = [Math]::Round(($NewHeight*$OldWidth)/$OldHeight)
+	    }
+    }
+    else{
+	    $NewHeight = $targetheight
+	    [int]$NewWidth = [Math]::Round(($NewHeight*$OldWidth)/$OldHeight)
 
-						if($NewWidth -gt $targetwidth){
-							$NewWidth = $targetwidth
-							[int]$NewHeight = [Math]::Round(($NewWidth*$OldHeight)/$OldWidth)
-						}     
-					}
+	    if($NewWidth -gt $targetwidth){
+		    $NewWidth = $targetwidth
+		    [int]$NewHeight = [Math]::Round(($NewWidth*$OldHeight)/$OldWidth)
+	    }     
+    }
 					
-					#Resize Working Image
-					$NewImage = new-object System.Drawing.Bitmap $NewWidth,$NewHeight
-					$Graphics = [System.Drawing.Graphics]::FromImage($NewImage)
-					$Graphics.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
-					$Graphics.DrawImage($OldImage, 0, 0, $NewWidth, $NewHeight)
+    #Resize Working Image
+    $NewImage = new-object System.Drawing.Bitmap $NewWidth,$NewHeight
+    $Graphics = [System.Drawing.Graphics]::FromImage($NewImage)
+    $Graphics.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+    $Graphics.DrawImage($OldImage, 0, 0, $NewWidth, $NewHeight)
 
-					#Save Working Image
-					$ImageFormat = $OldImage.RawFormat
-					$OldImage.Dispose()
-					$resizedname=$inputfile+"resized.jpg"
-					$NewImage.Save("$resizedname",$ImageFormat)
-					$NewImage.Dispose()
+    #Save Working Image
+    $ImageFormat = $OldImage.RawFormat
+    $OldImage.Dispose()
+    $resizedname=$inputfile+"resized.jpg"
+    $NewImage.Save("$resizedname",$ImageFormat)
+    $NewImage.Dispose()
 
     
     $img = [System.Drawing.Image]::Fromfile($resizedname);
@@ -326,6 +332,7 @@ function Get-FileName($initialDirectory){
 }
 
 . (Join-Path $PSScriptRoot 'Form1.designer.ps1')
+. (Join-Path $PSScriptRoot 'Form2.designer.ps1')
 Import-Module ActiveDirectory
 $objIPProperties = [System.Net.NetworkInformation.IPGlobalProperties]::GetIPGlobalProperties()
     $strDNSDomain = $objIPProperties.DomainName.toLower()

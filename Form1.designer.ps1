@@ -172,8 +172,8 @@ $statusStrip1.Text = [System.String]'statusStrip1'
 #statusBar1
 #
 $statusBar1.Name = [System.String]'statusBar1'
-$statusBar1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]77,[System.Int32]20))
-$statusBar1.Text = [System.String]'statusBar1'
+$statusBar1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]50,[System.Int32]20))
+$statusBar1.Text = [System.String]'Ready'
 #
 #Form1
 #
