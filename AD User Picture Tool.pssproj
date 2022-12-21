@@ -26,6 +26,12 @@
     <PowerShellVersion>Windows PowerShell</PowerShellVersion>
     <OutputName>AD User Picture Tool</OutputName>
     <OperatingSystem>Windows</OperatingSystem>
+    <PackageEntryPoint>Form1.ps1</PackageEntryPoint>
+    <FileVersion>1.02.0</FileVersion>
+    <FileDescription>AD User Picture Tool</FileDescription>
+    <ProductName>AD User Picture Tool</ProductName>
+    <ProductVersion>1.02.0</ProductVersion>
+    <StartupFile>Form1.ps1</StartupFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -75,10 +81,20 @@
     <Compile Include="Form1.ps1">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form2.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>Form2.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="Form2.ps1">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form2.resx">
+      <DependentUpon>Form2.ps1</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
