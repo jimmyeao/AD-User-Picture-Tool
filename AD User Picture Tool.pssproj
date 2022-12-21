@@ -7,6 +7,25 @@
     <RootNamespace>MyApplication</RootNamespace>
     <AssemblyName>MyApplication</AssemblyName>
     <Name>AD User Picture Tool</Name>
+    <ManifestPath>$(OutDir)\$(ProjectName).psd1</ManifestPath>
+    <Author>Jimmy White</Author>
+    <CompanyName>Deviousweb</CompanyName>
+    <Guid>ab47be05-acab-4ed2-9383-72517c522ac2</Guid>
+    <ProcessorArchitecture />
+    <RequiredModules>ActiveDirectory</RequiredModules>
+    <PackageAsExecutable>True</PackageAsExecutable>
+    <Bundle>True</Bundle>
+    <Obfuscate>True</Obfuscate>
+    <HideConsoleWindow>True</HideConsoleWindow>
+    <RequireElevation>False</RequireElevation>
+    <PackageModules>True</PackageModules>
+    <ApplicationIconPath>C:\Users\jimmy\Downloads\kisspng-active-directory-federation-services-microsoft-ado-active-directory-5b11dff33d3389.8735334115278980992507.ico</ApplicationIconPath>
+    <PackageType>Console</PackageType>
+    <HighDPISupport>False</HighDPISupport>
+    <PackagePlatform>x64</PackagePlatform>
+    <PowerShellVersion>Windows PowerShell</PowerShellVersion>
+    <OutputName>AD User Picture Tool</OutputName>
+    <OperatingSystem>Windows</OperatingSystem>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

@@ -17,6 +17,7 @@ $Form1 = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.TextBox]$DomaintextBox = $null
 function InitializeComponent
 {
+$resources = . (Join-Path $PSScriptRoot 'Form1.resources.ps1')
 $dataGridView1 = (New-Object -TypeName System.Windows.Forms.DataGridView)
 $Btn_Fetch = (New-Object -TypeName System.Windows.Forms.Button)
 $Btn_SaveAll = (New-Object -TypeName System.Windows.Forms.Button)
@@ -190,8 +191,10 @@ $Form1.Controls.Add($Btn_Replace)
 $Form1.Controls.Add($Btn_SaveAll)
 $Form1.Controls.Add($Btn_Fetch)
 $Form1.Controls.Add($dataGridView1)
+$Form1.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $Form1.MinimumSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]1086,[System.Int32]645))
 $Form1.Name = [System.String]'Form1'
+$Form1.Text = [System.String]'Active Directory User Picture Tool'
 ([System.ComponentModel.ISupportInitialize]$dataGridView1).EndInit()
 ([System.ComponentModel.ISupportInitialize]$pictureBox1).EndInit()
 $statusStrip1.ResumeLayout($false)
